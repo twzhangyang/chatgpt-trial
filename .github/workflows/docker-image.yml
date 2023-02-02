@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AWS_REGION: ap-southeast-2
-      ECR_REPOSITORY: school-repository
+      ECR_REPOSITORY: 468460113372.dkr.ecr.ap-southeast-2.amazonaws.com/school-ecr
 
     defaults:
       run:
@@ -22,8 +22,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file ./School.Api/Dockerfile --tag my-image-name:$(date +%s)
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -33,3 +31,23 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build the Docker image
+      run: docker build . --file ./School.Api/Dockerfile --tag ${{ env.ECR_REPOSITORY }}:${{ env.GITHUB_SHA }}
+
+#    - name: Build the Docker image
+#      uses: docker/build-push-action@v2
+#      with:
+#        context: .
+#        push: true
+#        tags: ${{ env.ECR_REPOSITORY }}:${{ env.GITHUB_SHA }}
+#        env:
+#          DOCKER_CLI_EXPERIMENTAL: enabled
+
+    - name: Push the Docker image to Amazon ECR
+      uses: aws-actions/amazon-ecr-push@v1
+      with:
+        repository-url: ${{ env.ECR_REPOSITORY }}
+        tags: ${{ env.GITHUB_SHA }}
+        force: true
+        registry-id: ${{ steps.login-ecr.outputs.registry-id }}
