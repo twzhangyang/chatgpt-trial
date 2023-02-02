@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{30397F03-BEC9-45FC-BCE9-BEFF27B7D443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Api", "src\School.Api\School.Api.csproj", "{01E5BFB2-968B-4DE6-BF09-6023186152CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "items", "items", "{D1F5E76C-AB78-416B-80CC-F94801D56AE8}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		src\infra.md = src\infra.md
+		..\.gitignore = ..\.gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Api.Tests", "src\School.Api.Tests\School.Api.Tests.csproj", "{87CF8620-9820-4136-ADE7-68BAAD921D60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01E5BFB2-968B-4DE6-BF09-6023186152CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01E5BFB2-968B-4DE6-BF09-6023186152CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01E5BFB2-968B-4DE6-BF09-6023186152CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01E5BFB2-968B-4DE6-BF09-6023186152CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87CF8620-9820-4136-ADE7-68BAAD921D60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87CF8620-9820-4136-ADE7-68BAAD921D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87CF8620-9820-4136-ADE7-68BAAD921D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87CF8620-9820-4136-ADE7-68BAAD921D60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{01E5BFB2-968B-4DE6-BF09-6023186152CA} = {30397F03-BEC9-45FC-BCE9-BEFF27B7D443}
+		{87CF8620-9820-4136-ADE7-68BAAD921D60} = {30397F03-BEC9-45FC-BCE9-BEFF27B7D443}
+	EndGlobalSection
+EndGlobal

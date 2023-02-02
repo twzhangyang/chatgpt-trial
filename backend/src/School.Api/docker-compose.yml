@@ -1,0 +1,10 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password1
+      POSTGRES_DB: school
+    ports:
+      - "5432:5432"
