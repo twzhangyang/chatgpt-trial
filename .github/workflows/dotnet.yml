@@ -13,6 +13,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: backend
 
     steps:
     - uses: actions/checkout@v3
@@ -20,8 +24,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Set working directory
-      working-directory: ./backend
     - name: Restore dependencies
       run: dotnet restore Chatgpt.Trial.sln
     - name: Build
