@@ -5,6 +5,8 @@ using School.Api.Services;
 
 namespace School.Api.Tests;
 
+[CollectionDefinition("NoParallel", DisableParallelization = true)]
+[Collection("NoParallel")]
 public class StudentServiceTests
 {
     private StudentService _studentService;
@@ -18,6 +20,9 @@ public class StudentServiceTests
             .Options;
 
         _context = new SchoolContext(options);
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
         _studentRepository = new StudentRepository(_context);
         _studentService = new StudentService(_studentRepository);
     }

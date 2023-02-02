@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,8 @@ using School.Api.Repository;
 
 namespace School.Api.Tests;
 
+[CollectionDefinition("NoParallel", DisableParallelization = true)]
+[Collection("NoParallel")]
 public class StudentControllerTests
 {
     private readonly StudentController _controller;
@@ -17,9 +20,12 @@ public class StudentControllerTests
     {
         // Arrange
         _options = new DbContextOptionsBuilder<SchoolContext>()
-            .UseInMemoryDatabase(databaseName: "TestDb")
+            .UseInMemoryDatabase(databaseName: "TestDb" )
             .Options;
         var context = new SchoolContext(_options);
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+
         _repository = new StudentRepository(context);
         _controller = new StudentController(_repository);
     }
@@ -30,12 +36,12 @@ public class StudentControllerTests
         // Arrange
         var student1 = new Student
         {
-            Id = 1, LastName = "Doe", FirstName = "John", EnrollmentDate = DateTime.Now, Email = "johndoe@email.com",
+            LastName = "Doe", FirstName = "John", EnrollmentDate = DateTime.Now, Email = "johndoe@email.com",
             Age = 25, Enrollments = new List<Enrollment>()
         };
         var student2 = new Student
         {
-            Id = 2, LastName = "Smith", FirstName = "Jane", EnrollmentDate = DateTime.Now,
+             LastName = "Smith", FirstName = "Jane", EnrollmentDate = DateTime.Now,
             Email = "janesmith@email.com", Age = 25, Enrollments = new List<Enrollment>()
         };
         await _repository.InsertStudent(student1);
@@ -56,7 +62,7 @@ public class StudentControllerTests
         // Arrange
         var student = new Student
         {
-            Id = 1, LastName = "Doe", FirstName = "John", EnrollmentDate = DateTime.Now, Email = "johndoe@email.com",
+            Id = 1, LastName = "Doe", FirstName = "John", EnrollmentDate = DateTime.Now, Email = "johndoe1@email.com",
             Age = 25, Enrollments = new List<Enrollment>()
         };
         await _repository.InsertStudent(student);
@@ -70,7 +76,7 @@ public class StudentControllerTests
         returnedStudent.LastName.Should().Be("Doe");
         returnedStudent.FirstName.Should().Be("John");
         returnedStudent.EnrollmentDate.Should().Be(student.EnrollmentDate);
-        returnedStudent.Email.Should().Be("johndoe@email.com");
+        returnedStudent.Email.Should().Be("johndoe1@email.com");
         returnedStudent.Age.Should().Be(25);
         returnedStudent.Enrollments.Should().BeEmpty();
     }
@@ -94,7 +100,7 @@ public class StudentControllerTests
             FirstName = "John",
             LastName = "Doe",
             Age = 25,
-            Email = "johndoe@email.com",
+            Email = "johndoe2@email.com",
             EnrollmentDate = DateTime.Now,
             Enrollments = new List<StudentRequest.EnrollmentRequest>
             {
@@ -110,7 +116,7 @@ public class StudentControllerTests
         returnedStudent.LastName.Should().Be("Doe");
         returnedStudent.FirstName.Should().Be("John");
         returnedStudent.EnrollmentDate.Should().Be(studentRequest.EnrollmentDate);
-        returnedStudent.Email.Should().Be("johndoe@email.com");
+        returnedStudent.Email.Should().Be("johndoe2@email.com");
         returnedStudent.Age.Should().Be(25);
         returnedStudent.Enrollments.Count.Should().Be(1);
     }

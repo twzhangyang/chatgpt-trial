@@ -4,6 +4,8 @@ using School.Api.Repository;
 
 namespace School.Api.Tests;
 
+[CollectionDefinition("NoParallel", DisableParallelization = true)]
+[Collection("NoParallel")]
 public class StudentRepositoryTests
 {
     private readonly StudentRepository _studentRepository;
@@ -17,6 +19,10 @@ public class StudentRepositoryTests
             .UseInMemoryDatabase(databaseName: "TestDb")
             .Options;
         _context = new SchoolContext(_options);
+
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
         _studentRepository = new StudentRepository(_context);
     }
 

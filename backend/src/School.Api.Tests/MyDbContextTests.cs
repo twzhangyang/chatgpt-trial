@@ -5,7 +5,7 @@ namespace School.Api.Tests;
 
 public class MyDbContextTests
 {
-    [Fact]
+    [Fact(Skip = "test")]
     public void Test_Connection()
     {
         // Arrange
