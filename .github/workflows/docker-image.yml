@@ -28,26 +28,18 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
+
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build the Docker image
-      run: docker build . --file ./School.Api/Dockerfile --tag ${{ env.ECR_REPOSITORY }}:${{ env.GITHUB_SHA }}
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
+        IMAGE_TAG: ${{ env.GITHUB_SHA }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . --file ./School.Api/Dockerfile
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
 
-#    - name: Build the Docker image
-#      uses: docker/build-push-action@v2
-#      with:
-#        context: .
-#        push: true
-#        tags: ${{ env.ECR_REPOSITORY }}:${{ env.GITHUB_SHA }}
-#        env:
-#          DOCKER_CLI_EXPERIMENTAL: enabled
-
-    - name: Push the Docker image to Amazon ECR
-      uses: aws-actions/amazon-ecr-push@v1
-      with:
-        repository-url: ${{ env.ECR_REPOSITORY }}
-        tags: ${{ env.GITHUB_SHA }}
-        force: true
-        registry-id: ${{ steps.login-ecr.outputs.registry-id }}
