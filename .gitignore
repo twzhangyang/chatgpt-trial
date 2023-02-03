@@ -356,3 +356,5 @@ MigrationBackup/
 schoolApp.zip
 c:\\temp\\internal-nlog-AspNetCore.txt
 .terraform
+
+dist/
