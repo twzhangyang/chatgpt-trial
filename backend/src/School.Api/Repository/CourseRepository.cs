@@ -35,11 +35,13 @@ public class CourseRepository : ICourseRepository
     public void AddCourse(Course course)
     {
         _context.Courses.Add(course);
+        _context.SaveChanges();
     }
 
     public void UpdateCourse(Course course)
     {
         _context.Courses.Update(course);
+        _context.SaveChanges();
     }
 
     public void DeleteCourse(Course course)

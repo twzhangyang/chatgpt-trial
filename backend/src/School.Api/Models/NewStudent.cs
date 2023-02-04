@@ -24,7 +24,7 @@ public class Enrollment
 
 public class Course
 {
-    public int CourseID { get; set; }
+    public int CourseId { get; set; }
     public string Title { get; set; }
     public string Credits { get; set; }
 
