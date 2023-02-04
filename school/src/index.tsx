@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import HomePage from "./HomePage"
+import StudentPage from "./StudentPage"
+import StudentNew from "./StudentNewPage"
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <StudentNew></StudentNew>
+    {/*<HomePage></HomePage>*/}
+    {/*<App />*/}
   </React.StrictMode>
 );
 
