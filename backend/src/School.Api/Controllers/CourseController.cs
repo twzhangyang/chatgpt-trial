@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using School.Api.Models;
+using School.Api.Models.NewStudent;
 using School.Api.NewRepository;
 
 namespace School.Api.Controllers;
@@ -27,7 +28,14 @@ public class CourseController : ControllerBase
     {
         var course = await _courseRepository.GetCourseById(int.Parse(id));
 
-        return Ok(course.ToCourseResponse());
+        if (course != null)
+        {
+            return Ok(course.ToCourseResponse());
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 
     [HttpPost]

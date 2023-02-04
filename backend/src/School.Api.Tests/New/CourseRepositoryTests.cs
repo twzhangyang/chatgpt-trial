@@ -31,7 +31,7 @@ public class CourseRepositoryTests
     public async Task GetCourses_ShouldReturnAllCourses()
     {
         // Arrange
-        var courses = new Course[]
+        var courses = new Course?[]
         {
             new Course { CourseId = 1, Title = "Test course 1", Credits = "3" },
             new Course { CourseId = 2, Title = "Test course 2", Credits = "4" },
@@ -53,7 +53,7 @@ public class CourseRepositoryTests
     public async Task GetCourseById_ShouldReturnCorrectCourse()
     {
         // Arrange
-        var courses = new Course[]
+        var courses = new Course?[]
         {
             new Course { CourseId = 1, Title = "Test course 1", Credits = "3" },
             new Course { CourseId = 2, Title = "Test course 2", Credits = "4" },

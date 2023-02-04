@@ -5,11 +5,11 @@ namespace School.Api.NewRepository;
 
 public interface ICourseRepository
 {
-    Task<IEnumerable<Course>> GetCourses();
-    Task<Course> GetCourseById(int id);
-    void AddCourse(Course course);
-    void UpdateCourse(Course course);
-    void DeleteCourse(Course course);
+    Task<IEnumerable<Course?>> GetCourses();
+    Task<Course?> GetCourseById(int id);
+    void AddCourse(Course? course);
+    void UpdateCourse(Course? course);
+    void DeleteCourse(Course? course);
     Task<bool> SaveChanges();
 }
 
@@ -22,29 +22,29 @@ public class CourseRepository : ICourseRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Course>> GetCourses()
+    public async Task<IEnumerable<Course?>> GetCourses()
     {
         return await _context.Courses.ToListAsync();
     }
 
-    public async Task<Course> GetCourseById(int id)
+    public async Task<Course?> GetCourseById(int id)
     {
-        return await _context.Courses.FindAsync(id);
+        return await _context.Courses.FirstOrDefaultAsync(x => x.CourseId == id);
     }
 
-    public void AddCourse(Course course)
+    public void AddCourse(Course? course)
     {
         _context.Courses.Add(course);
         _context.SaveChanges();
     }
 
-    public void UpdateCourse(Course course)
+    public void UpdateCourse(Course? course)
     {
         _context.Courses.Update(course);
         _context.SaveChanges();
     }
 
-    public void DeleteCourse(Course course)
+    public void DeleteCourse(Course? course)
     {
         _context.Courses.Remove(course);
     }

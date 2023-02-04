@@ -11,14 +11,14 @@ public class CourseRequest
 
 public class CourseResponse
 {
-    public string CourseId { get; set; }
+    public int CourseId { get; set; }
     public string Title { get; set; }
     public string Credits { get; set; }
 }
 
 public static class CourseExtensions
 {
-    public static Course ToCourse(this CourseRequest courseRequest)
+    public static Course? ToCourse(this CourseRequest courseRequest)
     {
         return new Course
         {
@@ -28,11 +28,11 @@ public static class CourseExtensions
         };
     }
 
-    public static CourseResponse ToCourseResponse(this Course course)
+    public static CourseResponse ToCourseResponse(this Course? course)
     {
         return new CourseResponse
         {
-            CourseId = course.CourseId.ToString(),
+            CourseId = course.CourseId,
             Title = course.Title,
             Credits = course.Credits,
         };
