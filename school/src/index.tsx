@@ -6,15 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import HomePage from "./HomePage"
 import StudentPage from "./StudentPage"
 import StudentNew from "./StudentNewPage"
+import { BrowserRouter } from "react-router-dom"
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <StudentNew></StudentNew>
-    {/*<HomePage></HomePage>*/}
-    {/*<App />*/}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
