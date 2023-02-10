@@ -1,5 +1,5 @@
 // tests/sum.test.ts
-import { sum } from './src/sum';
+import { sum } from './sum';
 
 describe('sum', () => {
   it('adds two numbers', () => {
