@@ -1,0 +1,83 @@
+@startuml
+title Payroll Domain Model
+
+class Employee {
+    +EmployeeID: String
+    +Name: String
+    +Position: Position
+    +HourlyWage/Salary: Float
+    +TaxBracket: TaxBracket
+    +Benefits: Benefits
+    +onboard(): Void
+    +offboard(): Void
+}
+
+class TimeRecord {
+    +EmployeeID: String
+    +StartDate: Date
+    +EndDate: Date
+    +HoursWorked: Float
+    +OvertimeHours: Float
+    +update(): Void
+}
+
+class Payment {
+    +EmployeeID: String
+    +GrossPay: Float
+    +Deductions: Float
+    +NetPay: Float
+    +PaymentDate: Date
+    +process(): Void
+}
+
+class Position {
+    +Title: String
+    +Department: String
+}
+
+class TaxBracket {
+    +BracketID: String
+    +Percentage: Float
+}
+
+class Benefits {
+    +HealthInsurance: Bool
+    +RetirementPlan: Bool
+}
+
+Employee "1" -- "1" TimeRecord: Records Time
+Employee "1" -- "1" Payment: Receives Payment
+
+
+class "EmployeeOnboardedEvent" as EOE {
+  +EmployeeID: Integer
+  +Name: String
+  +Position: String
+  +Wage/Salary: Double
+  +TaxBracket: String
+}
+
+class "EmployeeOffboardedEvent" as OOE {
+  +EmployeeID: Integer
+  +OffboardingDate: Date
+}
+
+class "TimeRecordUpdatedEvent" as TRE {
+  +EmployeeID: Integer
+  +StartDate: Date
+  +EndDate: Date
+  +HoursWorked: Double
+  +OvertimeHours: Double
+}
+
+class "PaymentProcessedEvent" as PPE {
+  +EmployeeID: Integer
+  +GrossPay: Double
+  +Deductions: Double
+  +NetPay: Double
+  +PaymentDate: Date
+}
+
+E -- TR : Records >
+E -- P : Receives >
+@enduml
